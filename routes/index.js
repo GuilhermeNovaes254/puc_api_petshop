@@ -3,7 +3,6 @@ var router = express.Router();
 const controller = require('../controllers/controller');
 
 // Middlewares
-const verifyLoggedUser = require('../middlewares/verifyLogged');
 
 router.get('/', function(req, res) {
     res.send('Hello World').status(200);
@@ -11,7 +10,7 @@ router.get('/', function(req, res) {
 
 router.post('/login', controller.createBearerToken);
 
-router.get('/animals', verifyLoggedUser, verifyToken, controller.getAllAnimals)
+router.get('/animals', controller.getAllAnimals)
 router.get('/animals', controller.getOneAnimal)
 router.post('/animals', controller.createAnimal);
 router.put('/animals', controller.updateAnimal);

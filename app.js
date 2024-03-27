@@ -5,12 +5,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 
-// const ObjectId = require('mongodb').ObjectID;
-// const MongoClient = require('mongodb').MongoClient;
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
-var routesIndex = require('./routes/index');
+const routesIndex = require('./routes/index');
+
 
 var app = express();
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
