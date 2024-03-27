@@ -7,8 +7,7 @@ var logger = require('morgan');
 // const ObjectId = require('mongodb').ObjectID;
 // const MongoClient = require('mongodb').MongoClient;
 
-var routesAnimals = require('./routes/index');
-var routestutors = require('./routes/tutors');
+var routesIndex = require('./routes/index');
 
 var app = express();
 
@@ -19,11 +18,16 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 
+// configure a port
+var port = process.env.PORT || 3000;
+app.listen(port, function() {
+  console.log('Server running on port ' + port);
+});
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/v1/animals', routesAnimals);
-app.use('/v1/tutors', routestutors);
+app.use('/v1', routesIndex);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

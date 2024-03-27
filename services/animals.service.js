@@ -10,8 +10,8 @@ const animalsService = {
         const {
             query
         } = req;
-        const limit = query.limit;
-        const start = query.start;
+        let limit = query.limit;
+        let start = query.start;
 
 
         if (start == null) {

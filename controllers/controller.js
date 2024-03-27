@@ -4,6 +4,8 @@ const animalModel = require('../models/animal.model')
 
 const controllers = {
 
+    Alive: (req, res) => { res.send("Listening").status(200) },
+
     getAllAnimals: async (req, res) => {
 
         const data = await animalsService.getAllAnimals(req, res);
