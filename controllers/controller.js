@@ -1,10 +1,31 @@
 const animalsService = require('../services/animals.service');
 const tutorsService = require('../services/tutors.service');
 const animalModel = require('../models/animal.model')
+const jwt = require('jsonwebtoken');
+
+
+const generateBearerToken = async () => {
+    const secretKey = 's3cr3t'; 
+    const options = {
+        expiresIn: '1h', 
+    };
+
+    try {
+        const token = jwt.sign(payload, secretKey, options);
+        return token;
+    } catch (error) {
+        console.error('Error generating bearer token:', error);
+        throw error;
+    }
+};
+
 
 const controllers = {
 
-    Alive: (req, res) => { res.send("Listening").status(200) },
+    createBearerToken: async (req, res) => {
+        const token = await generateBearerToken();
+        res.json({ token }).status(200);
+    },
 
     getAllAnimals: async (req, res) => {
 

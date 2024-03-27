@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 
 // const ObjectId = require('mongodb').ObjectID;
 // const MongoClient = require('mongodb').MongoClient;
@@ -24,10 +25,21 @@ app.listen(port, function() {
   console.log('Server running on port ' + port);
 });
 
+app.use(session({
+  secret: 'segredos',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 3600000
+  }
+}))
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/v1', routesIndex);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
