@@ -2,25 +2,10 @@ var express = require('express');
 var router = express.Router();
 const controller = require('../controllers/controller');
 
-// Get  all
 router.get('/animals', controller.getAllAnimals)
-
-// Get one
 router.get('/animals', controller.getOneAnimal)
-
-// Create
-router.post('/animals', function(req, res, next) {
-  res.json({"status":"OK"});
-});
-
-// Update
-router.put('/animals', function(req, res, next) {
-  res.json({"status":"OK"});
-});
-
-// Delete
-router.delete('/animals', function(req, res, next) {  
-  res.json({"status":"OK"});
-});
+router.post('/animals', controller.createAnimal);
+router.put('/animals', controller.updateAnimal);
+router.delete('/animals', controller.deleteAnimal);
 
 module.exports = router

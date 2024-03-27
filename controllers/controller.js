@@ -1,7 +1,8 @@
 const animalsService = require('../services/animals.service');
+const tutorsService = require('../services/tutors.service');
 const animalModel = require('../models/animal.model')
 
-const controllerAnimal = {
+const controllers = {
 
     getAllAnimals: async (req, res) => {
 
@@ -41,9 +42,39 @@ const controllerAnimal = {
         animalsService.deleteAnimal(req, res)
     },
 
-    
+    getAllTutors: async (req, res) => {
+        const data = await tutorsService.getAllTutors(req, res);
+        res.json(data).status(200);
+    },
 
+    getOneTutor: async (req, res) => {
+        const data = await tutorsService.getOneTutor(req, res);
+        if (Object.keys(data).length === 0) {
+            res.status(404)
+        } else {
+            res.json(data).status(200);
+        }
+    },
 
-}
+    createTutor: async (req, res) => {
+        if (animalModel.validateTutorInput(req.body)){
+            tutorsService.createTutor(req, res)
+        }else{
+            res.json({"message":"Bad inputs"}).send(400)
+        }
+    },
 
-module.exports = controllerAnimal
+    updateTutor: async (req, res) => {
+        if (animalModel.validateTutorUpdate(req.body)){
+            tutorsService.updateTutor(req, res)
+        }else{
+            res.json({"message":"Bad inputs"}).send(400)
+        }
+    },
+
+    deleteTutor: async (req, res) => {
+        tutorsService.deleteTutor(req, res)
+    }
+};
+
+module.exports = controllers;
